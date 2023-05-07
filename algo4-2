@@ -1,0 +1,14 @@
+# 遞迴方式計算 n-th Fibonacci
+def fib_rec(n):
+  if n <= 1:
+    return 1
+  return fib_rec(n-1) + fib_rec(n-2)
+
+i = 0
+while True:
+  try:
+    print('n = %d, value = %d'%(i, fib_rec(i)))
+    i += 1
+  except RecursionError:
+    print('RecursionError! Maximum recursion depth exceeded.')
+    break
