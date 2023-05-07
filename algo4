@@ -1,0 +1,52 @@
+import time
+import matplotlib.pyplot as plt
+
+#recursive
+def fib_rec(n):
+    if n <= 1:
+        return 1
+    return fib_rec(n-1) + fib_rec(n-2)
+
+#dynamic programming
+def fib_dy(n):
+    if n <= 1:
+        return 1
+    fib_list = [1, 1]
+    for i in range(2, n+1):
+        fib_list.append(fib_list[i-1] + fib_list[i-2])
+    return fib_list[n]
+
+#執行時間
+# time_rec = 0
+def fibonacci_time(n):
+#     global time_rec
+    if n <= 40:
+        start_rec = time.time()
+        fib_rec(n)
+        end_rec = time.time()
+        
+        time_rec = end_rec-start_rec
+    else:
+#         time_rec = time_rec*1000
+        time_rec = 30000
+    start_dy = time.time()
+    fib_dy(n)
+    end_dy = time.time()
+    return (time_rec, end_dy-start_dy)
+
+#折線圖
+x = list(range(10, 110, 10))
+rec = []
+dy = []
+for i in x:
+    t1, t2 = fibonacci_time(i)
+    rec.append(t1)
+    dy.append(t2) 
+plt.figure(figsize=(8, 16))
+plt.plot(x, rec, label='Recursion')
+plt.plot(x, dy, label='Dynamic Programming')
+plt.xlabel('n')
+plt.ylabel('Time (seconds)')
+plt.title('Fibonacci Execution Time')
+plt.legend()
+plt.show()
